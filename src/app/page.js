@@ -2,6 +2,7 @@
 
 import HeroSection from "@/components/HeroSection";
 import BrandingSection from "@/components/BrandingSection";
+import DrivingDemand from "@/components/DrivingDemand";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
@@ -27,9 +28,10 @@ export default function Home() {
 
   return (
     <main ref={container} className="w-full min-h-screen bg-[#B2F5E1] font-sans relative overflow-x-hidden">
-      <div className="page-revealer w-full min-h-screen bg-white flex flex-col">
+      <div className="page-revealer w-full min-h-screen bg-[#EFEEEC] flex flex-col">
         <HeroSection />
         <BrandingSection />
+        <DrivingDemand />
       </div>
     </main>
   );

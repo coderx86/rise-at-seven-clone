@@ -43,7 +43,7 @@ const BrandingSection = () => {
   }, []);
 
   return (
-    <section className="w-full pt-6 xl:pt-12 bg-white relative overflow-hidden">
+    <section className="w-full pt-6 xl:pt-12 bg-[#EFEEEC] relative overflow-hidden">
       <div className="w-full px-4 md:px-7">
         <div className="grid grid-cols-[repeat(20,minmax(0,1fr))] gap-y-2 w-full">
           
