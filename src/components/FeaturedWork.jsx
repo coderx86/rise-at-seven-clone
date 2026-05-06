@@ -87,6 +87,24 @@ const FeaturedWork = () => {
   const activeIndexRef = useRef(0);
   const hoveredIndexRef = useRef(null);
 
+  const handleMouseEnter = (e, targetRadius) => {
+    gsap.to(e.currentTarget, {
+      borderRadius: targetRadius,
+      duration: 0.4,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+  };
+
+  const handleMouseLeave = (e, targetRadius) => {
+    gsap.to(e.currentTarget, {
+      borderRadius: targetRadius,
+      duration: 0.4,
+      ease: "power2.out",
+      overwrite: "auto",
+    });
+  };
+
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
@@ -190,19 +208,22 @@ const FeaturedWork = () => {
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 1024px)", () => {
+        // Dynamic scroll calculation function
+        const getScrollAmount = () => {
+          const rightHeight = rightColRef.current ? rightColRef.current.offsetHeight : 0;
+          return Math.max(0, rightHeight - window.innerHeight + 120);
+        };
+
         gsap.to(rightColRef.current, {
-          y: () => {
-            const rightHeight = rightColRef.current.offsetHeight;
-            return -(rightHeight - window.innerHeight + 120);
-          },
+          y: () => -getScrollAmount(),
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: "bottom bottom",
+            // Set scroll distance dynamically instead of manual height
+            end: () => `+=${getScrollAmount()}`,
             scrub: true,
-            pin: containerRef.current,
-            pinType: "fixed",
+            pin: containerRef.current, 
             onUpdate: (self) => {
               const rawIndex = Math.round(
                 self.progress * (worksData.length - 1),
@@ -270,7 +291,7 @@ const FeaturedWork = () => {
   return (
     <section
       ref={sectionRef}
-      className="w-full h-[100vh] lg:h-[300vh] pb-12 xl:pb-24 bg-[#EFEEEC]"
+      className="w-full h-auto pb-12 xl:pb-24 bg-[#EFEEEC]"
     >
       <div className="w-full px-4 md:px-7 h-full">
         <div
@@ -381,6 +402,28 @@ const FeaturedWork = () => {
               ))}
             </div>
           </div>
+        </div>
+        
+        {/* Explore Our Work CTA */}
+        <div className="flex justify-center mt-3 lg:mt-10">
+          <Link
+            href="https://riseatseven.com/work/"
+            className="w-full md:w-auto flex rounded-full justify-center items-center text-black bg-white px-6 md:px-8 py-2 md:py-4 font-medium text-md md:text-lg group"
+            onMouseEnter={(e) => handleMouseEnter(e, "12px")}
+            onMouseLeave={(e) => handleMouseLeave(e, "30px")}
+
+          >
+            <div className="relative overflow-hidden h-6 w-44">
+              <div className="transition-transform duration-300 ease-out group-hover:-translate-y-6 flex items-center justify-center gap-x-2">
+                <span>Explore Our Work</span>
+                <FiArrowUpRight className="text-md font-bold mt-0.5" />
+              </div>
+              <div className="transition-transform duration-300 ease-out absolute top-0 left-0 w-full h-full translate-y-6 group-hover:translate-y-0 flex items-center justify-center gap-x-2">
+                <span>Explore Our Work</span>
+                <FiArrowUpRight className="text-md mt-0.5" />
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
 
