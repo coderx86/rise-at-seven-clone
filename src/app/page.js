@@ -3,6 +3,7 @@
 import HeroSection from "@/components/HeroSection";
 import BrandingSection from "@/components/BrandingSection";
 import DrivingDemand from "@/components/DrivingDemand";
+import FeaturedWork from "@/components/FeaturedWork";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef } from "react";
@@ -32,6 +33,7 @@ export default function Home() {
         <HeroSection />
         <BrandingSection />
         <DrivingDemand />
+        <FeaturedWork />
       </div>
     </main>
   );
