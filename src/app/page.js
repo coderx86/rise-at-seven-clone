@@ -6,35 +6,72 @@ import DrivingDemand from "@/components/DrivingDemand";
 import FeaturedWork from "@/components/FeaturedWork";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+
+// Saves position before unload, restores after hydration.
+function useScrollRestoration() {
+  useEffect(() => {
+    const saved = sessionStorage.getItem("scrollY");
+    if (saved !== null) {
+      requestAnimationFrame(() => {
+        window.scrollTo(0, parseInt(saved, 10));
+      });
+      sessionStorage.removeItem("scrollY");
+    }
+
+    const onBeforeUnload = () => {
+      sessionStorage.setItem("scrollY", String(window.scrollY));
+    };
+    window.addEventListener("beforeunload", onBeforeUnload);
+    return () => window.removeEventListener("beforeunload", onBeforeUnload);
+  }, []);
+}
 
 export default function Home() {
   const container = useRef(null);
+  const overlayRef = useRef(null);
+
+  useScrollRestoration();
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        ".page-revealer",
-        { clipPath: "circle(0% at 50% 100%)" },
-        {
-          clipPath: "circle(150% at 50% 100%)",
-          duration: 1.2,
-          ease: "power3.inOut",
-          clearProps: "clipPath",
-        }
-      );
+      const overlay = overlayRef.current;
+      if (!overlay) return;
+
+      // Animate the overlay mask: a transparent circle grows from bottom-center,
+      // punching a hole in the solid overlay to reveal the content underneath.
+      const proxy = { r: 0 };
+      gsap.to(proxy, {
+        r: 150,
+        duration: 1.2,
+        ease: "power3.inOut",
+        onUpdate: () => {
+          const mask = `radial-gradient(circle ${proxy.r}vmax at 50% 100%, transparent 100%, #000 100%)`;
+          overlay.style.webkitMaskImage = mask;
+          overlay.style.maskImage = mask;
+        },
+        onComplete: () => {
+          overlay.style.display = "none";
+        },
+      });
     },
     { scope: container }
   );
 
   return (
-    <main ref={container} className="w-full min-h-screen bg-[#B2F5E1] font-sans relative overflow-x-hidden">
-      <div className="page-revealer w-full min-h-screen bg-[#EFEEEC] flex flex-col">
+    <main ref={container} className="w-full min-h-screen bg-[#EFEEEC] font-sans relative overflow-x-hidden">
+      <div className="w-full min-h-screen bg-[#EFEEEC] flex flex-col">
         <HeroSection />
         <BrandingSection />
         <DrivingDemand />
         <FeaturedWork />
       </div>
+
+      <div
+        ref={overlayRef}
+        className="fixed inset-0 z-[9999] pointer-events-none bg-[#B2F5E1]"
+      />
     </main>
   );
 }
+
