@@ -7,6 +7,7 @@ import FeaturedWork from "@/components/FeaturedWork";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useRef, useEffect } from "react";
+import OurServices from "@/components/OurServices";
 
 // Saves position before unload, restores after hydration.
 function useScrollRestoration() {
@@ -65,6 +66,7 @@ export default function Home() {
         <BrandingSection />
         <DrivingDemand />
         <FeaturedWork />
+        <OurServices />
       </div>
 
       <div
