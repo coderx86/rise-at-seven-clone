@@ -251,7 +251,7 @@ const OurServices = () => {
   return (
     <section
       ref={containerRef}
-      className="w-full pb-24 bg-[#EFEEEC] select-none"
+      className="w-full pb-8 md:pb-20 bg-[#EFEEEC] select-none"
     >
       <div className="w-full px-4 md:px-7">
         {/* Header */}
