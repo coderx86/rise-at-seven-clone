@@ -118,7 +118,7 @@ const FeaturedWork = () => {
       });
       updateActiveHeading(0); // Set first item as active initially
 
-      // --- 1. Global Pointer Tracking ---
+      // --- 1. Global Pointer Tracking definitions ---
       const onGlobalMove = (e) => {
         mousePos.current.x = e.clientX;
         mousePos.current.y = e.clientY;
@@ -138,9 +138,6 @@ const FeaturedWork = () => {
         mousePos.current.x = -1000;
         mousePos.current.y = -1000;
       };
-
-      window.addEventListener("pointermove", onGlobalMove);
-      window.addEventListener("pointerleave", onGlobalLeave);
 
       // --- 2. High-Performance Hover Checker (GSAP Ticker) ---
       const tickerHoverCheck = () => {
@@ -202,12 +199,15 @@ const FeaturedWork = () => {
         }
       };
 
-      gsap.ticker.add(tickerHoverCheck);
-
-      // --- 3. ScrollTrigger Logic ---
+      // --- 3. MatchMedia (Desktop-Only Cursor & ScrollTrigger) ---
       const mm = gsap.matchMedia();
 
       mm.add("(min-width: 1024px)", () => {
+        // Register listeners only on desktop
+        window.addEventListener("pointermove", onGlobalMove);
+        window.addEventListener("pointerleave", onGlobalLeave);
+        gsap.ticker.add(tickerHoverCheck);
+
         // Dynamic scroll calculation function
         const getScrollAmount = () => {
           const rightHeight = rightColRef.current ? rightColRef.current.offsetHeight : 0;
@@ -241,12 +241,16 @@ const FeaturedWork = () => {
             },
           },
         });
+
+        // Cleanup callback for matchMedia unmounting on mobile viewports
+        return () => {
+          window.removeEventListener("pointermove", onGlobalMove);
+          window.removeEventListener("pointerleave", onGlobalLeave);
+          gsap.ticker.remove(tickerHoverCheck);
+        };
       });
 
       return () => {
-        window.removeEventListener("pointermove", onGlobalMove);
-        window.removeEventListener("pointerleave", onGlobalLeave);
-        gsap.ticker.remove(tickerHoverCheck);
         mm.revert();
       };
     },
@@ -348,7 +352,7 @@ const FeaturedWork = () => {
                   key={idx}
                   href={work.href}
                   ref={(el) => (cardsRef.current[idx] = el)}
-                  className="grid group rounded-2xl overflow-hidden relative cursor-none shadow-xl"
+                  className="grid group rounded-2xl overflow-hidden relative lg:cursor-none shadow-xl"
                   style={{ "--mouse-x": "50%", "--mouse-y": "50%" }}
                 >
                   <div className="col-start-1 row-start-1 relative w-full aspect-[4/3] transition-transform duration-700 group-hover:scale-105">
@@ -430,7 +434,7 @@ const FeaturedWork = () => {
       {/* Global Cursor */}
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed top-0 left-0 w-[100px] h-[100px] rounded-full bg-[#B2F5E1] text-[#111212] z-[100] flex items-center justify-center select-none opacity-0 scale-0"
+        className="pointer-events-none fixed top-0 left-0 w-[100px] h-[100px] rounded-full bg-[#B2F5E1] text-[#111212] z-[100] hidden lg:flex items-center justify-center select-none opacity-0 scale-0"
       >
         <FiArrowUpRight className="text-4xl font-bold" />
       </div>

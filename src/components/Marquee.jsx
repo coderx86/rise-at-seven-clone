@@ -71,7 +71,7 @@ const Marquee = () => {
     };
   }, []);
 
-  // 2. Custom cursor follow logic (Ticker based, handles scrolling perfectly)
+  // 2. Custom cursor follow logic (Ticker based, handles scrolling perfectly - Desktop Only!)
   useEffect(() => {
     const section = sectionRef.current;
     const cursor = cursorRef.current;
@@ -105,9 +105,6 @@ const Marquee = () => {
       mousePos.current.x = -1000;
       mousePos.current.y = -1000;
     };
-
-    window.addEventListener("pointermove", onGlobalMove);
-    window.addEventListener("pointerleave", onGlobalLeave);
 
     // High-Performance Hover Checker (GSAP Ticker)
     const tickerHoverCheck = () => {
@@ -144,12 +141,23 @@ const Marquee = () => {
       }
     };
 
-    gsap.ticker.add(tickerHoverCheck);
+    // --- matchMedia for Desktop-Only Listeners ---
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 1024px)", () => {
+      window.addEventListener("pointermove", onGlobalMove);
+      window.addEventListener("pointerleave", onGlobalLeave);
+      gsap.ticker.add(tickerHoverCheck);
+
+      return () => {
+        window.removeEventListener("pointermove", onGlobalMove);
+        window.removeEventListener("pointerleave", onGlobalLeave);
+        gsap.ticker.remove(tickerHoverCheck);
+      };
+    });
 
     return () => {
-      window.removeEventListener("pointermove", onGlobalMove);
-      window.removeEventListener("pointerleave", onGlobalLeave);
-      gsap.ticker.remove(tickerHoverCheck);
+      mm.revert();
     };
   }, []);
 
@@ -157,12 +165,12 @@ const Marquee = () => {
     <Link 
       href="/"
       ref={sectionRef}
-      className="block w-full py-8 bg-[#EFEEEC] overflow-hidden relative cursor-none select-none"
+      className="block w-full py-8 bg-[#EFEEEC] overflow-hidden relative lg:cursor-none select-none"
     >
       {/* Custom Mouse Follower Cursor */}
       <div
         ref={cursorRef}
-        className="fixed pointer-events-none z-[9999] bg-[#B2F5E1] text-black text-xs md:text-sm font-semibold px-5 py-2.5 md:px-7 md:py-3.5 rounded-full flex items-center gap-2 whitespace-nowrap shadow-2xl"
+        className="fixed pointer-events-none z-[9999] bg-[#B2F5E1] text-black text-xs md:text-sm font-semibold px-5 py-2.5 md:px-7 md:py-3.5 rounded-full hidden lg:flex items-center gap-2 whitespace-nowrap shadow-2xl"
         style={{ left: 0, top: 0, willChange: "transform" }}
       >
         <span>Send Us Your Brief</span>
