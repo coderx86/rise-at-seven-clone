@@ -10,6 +10,7 @@ import { useRef, useEffect } from "react";
 import OurServices from "@/components/OurServices";
 import Marquee from "@/components/Marquee";
 import LegacySection from "@/components/LegacySection";
+import WhatsNew from "@/components/WhatsNew";
 
 // Saves position before unload, restores after hydration.
 function useScrollRestoration() {
@@ -71,6 +72,7 @@ export default function Home() {
         <OurServices />
         <Marquee />
         <LegacySection />
+        <WhatsNew />
       </div>
 
       <div
