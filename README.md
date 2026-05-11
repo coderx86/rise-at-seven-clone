@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Rise At Nine
 
-## Getting Started
+🔗[Rise At Nine Showcase](https://rise-at-nine.vercel.app/)
+## About the Project
+**Rise At Nine** is a high-fidelity frontend clone of a premium digital PR and SEO agency website named Rise at Seven](https://riseatseven.com/). It focuses heavily on complex, silky-smooth interactions and a premium glassmorphic user interface. The project implements modern web techniques, including intricate scroll-driven animations, custom performance-optimized mouse cursors, horizontal infinite marquees, and layered layout pinning to provide a top-tier visual experience.
 
-First, run the development server:
+## Personal Experience
+This is one of the most challenging frontend projects of my life. Initially, I tried to clone the site with zero knowledge of GSAP by relying entirely on AI. However, AI alone left me disappointed when trying to string together complex, high-performance animation timelines. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Because of this, I decided to learn GSAP from scratch. I learned GSAP from Javascript Mastery on YouTube, various other YouTube channel playlists, the official documentation, and used AI to supplement my learning. I am still learning to truly master GSAP, but this project represents a massive milestone in my frontend animation journey.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
+- **Framework:** [Next.js](https://nextjs.org/) (React)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Animations:** [GSAP](https://gsap.com/) ,ScrollTrigger and lenis.js-for smooth scrolling
+- **Icons:** [React Icons](https://react-icons.github.io/react-icons/)
+- **Deployment:** [Vercel](https://vercel.com/)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run this project locally, follow these steps:
 
-## Learn More
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd rise-at-nine
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **View the project:**
+   Navigate to [http://localhost:3000](http://localhost:3000) in your browser to see the live application.
