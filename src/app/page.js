@@ -9,6 +9,7 @@ import { useGSAP } from "@gsap/react";
 import { useRef, useEffect } from "react";
 import OurServices from "@/components/OurServices";
 import Marquee from "@/components/Marquee";
+import LegacySection from "@/components/LegacySection";
 
 // Saves position before unload, restores after hydration.
 function useScrollRestoration() {
@@ -69,6 +70,7 @@ export default function Home() {
         <FeaturedWork />
         <OurServices />
         <Marquee />
+        <LegacySection />
       </div>
 
       <div
