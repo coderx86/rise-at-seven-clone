@@ -88,7 +88,7 @@ const BrandingSection = () => {
             </div>
 
             {/* Layered Progressive Blur Overlay Left */}
-            <div className="absolute top-0 bottom-0 left-0 w-50 z-10 pointer-events-none">
+            <div className="absolute top-0 bottom-0 left-0 w-20 md:w-50 z-10 pointer-events-none">
               {[0, 1, 2, 3, 4].map((index) => (
                 <div 
                   key={index} 
@@ -102,7 +102,7 @@ const BrandingSection = () => {
             </div>
 
             {/* Layered Progressive Blur Overlay Right */}
-            <div className="absolute top-0 bottom-0 right-0 w-50 z-10 pointer-events-none">
+            <div className="absolute top-0 bottom-0 right-0 w-20 md:w-50 z-10 pointer-events-none">
               {[0, 1, 2, 3, 4].map((index) => (
                 <div 
                   key={index} 
