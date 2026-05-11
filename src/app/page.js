@@ -11,6 +11,7 @@ import OurServices from "@/components/OurServices";
 import Marquee from "@/components/Marquee";
 import LegacySection from "@/components/LegacySection";
 import WhatsNew from "@/components/WhatsNew";
+import ReadyToRise from "@/components/ReadyToRise";
 
 // Saves position before unload, restores after hydration.
 function useScrollRestoration() {
@@ -73,6 +74,7 @@ export default function Home() {
         <Marquee />
         <LegacySection />
         <WhatsNew />
+        <ReadyToRise />
       </div>
 
       <div
